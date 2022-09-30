@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 import { TProduct } from '../../types/types'
 import { formatDollars } from '../../utils/formatters'
@@ -15,7 +16,9 @@ const Catalog: React.FC<{ products: TProduct[] }> = ({ products }) => {
                             <p>{product.description}</p>
                             <p className='text-lg'>{formatDollars(product.price)}</p>
                             <div className="card-actions justify-end">
-                                <button className="btn btn-primary">Buy Now</button>
+                                <Link href={`/products/${product.id}`}>
+                                    <a className="btn btn-primary">Details</a>
+                                </Link >
                             </div>
                         </div>
                     </div>

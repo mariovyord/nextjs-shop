@@ -24,12 +24,16 @@ const Home: NextPage<{ products: TProduct[] }> = ({ products }) => {
 export default Home;
 
 export const getStaticProps: GetStaticProps = async () => {
-    const products = await getProducts() as TProduct;
+    try {
+        const products = await getProducts() as TProduct[];
 
-    return {
-        props: {
-            products,
-        },
-        revalidate: 300,
+        return {
+            props: {
+                products,
+            },
+            revalidate: 300,
+        }
+    } catch (err) {
+        return { notFound: true, }
     }
 }
