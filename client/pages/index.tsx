@@ -4,6 +4,7 @@ import Catalog from '../components/catalog/catalog';
 import { GetStaticProps, NextPage } from 'next';
 import { getProducts } from '../lib/products';
 import { TProduct } from '../types/types';
+import { ApiError } from '../lib/api';
 
 const Home: NextPage<{ products: TProduct[] }> = ({ products }) => {
     return (
@@ -34,6 +35,10 @@ export const getStaticProps: GetStaticProps = async () => {
             revalidate: 300,
         }
     } catch (err) {
-        return { notFound: true, }
+        if (err instanceof ApiError && err.status === 404) {
+            return { notFound: true, }
+
+        }
+        throw err;
     }
 }

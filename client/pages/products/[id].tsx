@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
+import { ApiError } from '../../lib/api';
 import Image from 'next/image';
 import React from 'react'
 import { getProductById, getProducts } from '../../lib/products';
@@ -55,7 +56,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
             revalidate: 300,
         }
     } catch (err) {
-        return { notFound: true, }
+        if (err instanceof ApiError && err.status === 404) {
+            return { notFound: true, }
+
+        }
+        throw err;
     }
 }
 
