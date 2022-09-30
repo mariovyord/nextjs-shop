@@ -2,8 +2,8 @@ import React from 'react'
 
 const Header = () => {
     return (
-        <header>
-            <div className="navbar bg-base-100 max-w-screen-2xl mx-auto">
+        <header className='bg-primary text-primary-content'>
+            <div className="navbar max-w-screen-2xl mx-auto">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -24,7 +24,7 @@ const Header = () => {
                             <li><a>Item 3</a></li>
                         </ul>
                     </div>
-                    <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+                    <a className="btn btn-ghost normal-case text-xl">Next.js Shop</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">
