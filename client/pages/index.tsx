@@ -1,15 +1,11 @@
 import React from 'react';
 import Head from 'next/head'
 import Catalog from '../components/catalog/catalog';
+import { GetStaticProps, NextPage } from 'next';
+import { getProducts } from '../lib/products';
+import { TProduct } from '../types/types';
 
-const products = [
-    { id: 1, title: 'Product 1', description: 'Nice product', price: 9.99 },
-    { id: 2, title: 'Product 1', description: 'Nice product', price: 9.99 },
-    { id: 3, title: 'Product 1', description: 'Nice product', price: 9.99 },
-    { id: 4, title: 'Product 1', description: 'Nice product', price: 9.99 },
-]
-
-const Home = () => {
+const Home: NextPage<{ products: TProduct[] }> = ({ products }) => {
     return (
         <>
             <Head>
@@ -19,12 +15,21 @@ const Home = () => {
                 <header className='py-10'>
                     <h1 className='text-center font-bold text-4xl'>Next Shop</h1>
                 </header>
-                <div>
-                    <Catalog products={products} />
-                </div>
+                <Catalog products={products} />
             </main>
         </>
     )
 }
 
 export default Home;
+
+export const getStaticProps: GetStaticProps = async () => {
+    const products = await getProducts() as TProduct;
+
+    return {
+        props: {
+            products,
+        },
+        revalidate: 300,
+    }
+}
