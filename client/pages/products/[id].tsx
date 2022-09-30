@@ -53,7 +53,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
             props: {
                 product,
             },
-            revalidate: 300,
+            revalidate: parseInt(process.env.REVALIDATE_SECONDS),
         }
     } catch (err) {
         if (err instanceof ApiError && err.status === 404) {
