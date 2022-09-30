@@ -18,8 +18,8 @@ export class ApiError extends Error implements IApiError {
     }
 }
 
-export const fetchJson = async (url) => {
-    const res = await fetch(process.env.API_URL + url)
+export const fetchJson = async (url, options) => {
+    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + url, options)
 
     if (!res.ok) {
         throw new ApiError(url, res.status);

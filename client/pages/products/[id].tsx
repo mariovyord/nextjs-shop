@@ -1,22 +1,13 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
 import { ApiError } from '../../lib/api';
-import Image from 'next/image';
 import React from 'react'
 import { getProductById, getProducts } from '../../lib/products';
 import { TProduct } from '../../types/types';
+import Details from '../../components/details/details';
 
-const ProductDetails = ({ product }) => {
+const ProductDetails: NextPage<{ product: TProduct }> = ({ product }) => {
     return (
-        <div className="card lg:card-side bg-base-100 shadow-xl">
-            <figure><Image src={process.env.NEXT_PUBLIC_API_URL + product.picture.url} alt={product.picture.alt} width={600} height={400} /></figure>
-            <div className="card-body">
-                <h2 className="card-title">{product.title}</h2>
-                <p>Click the button to listen on Spotiwhy app.</p>
-                <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Listen</button>
-                </div>
-            </div>
-        </div>
+        <Details product={product} />
     )
 }
 
