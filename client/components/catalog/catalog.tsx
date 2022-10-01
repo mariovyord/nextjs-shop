@@ -10,7 +10,7 @@ const Catalog: React.FC<{ products: TProduct[] }> = ({ products }) => {
             {products.map(product => {
                 return <div className='flex justify-center'>
                     <div key={product.id} className="card card-compact w-full sm:w-[350px] bg-base-100 shadow-xl">
-                        <figure><Image src={process.env.NEXT_PUBLIC_API_URL + product.picture.url} alt={product.picture.alternativeText} width={400} height={300}></Image></figure>
+                        <figure><Image src={process.env.NEXT_PUBLIC_CMS_URL + product.picture.url} alt={product.picture.alternativeText} width={400} height={300}></Image></figure>
                         <div className="card-body">
                             <div className='flex justify-between align-baseline'>
                                 <h2 className="card-title">{product.title}</h2>

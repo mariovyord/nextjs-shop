@@ -8,7 +8,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const { email, password } = req.body;
 
-        const { jwt, user } = await fetchJson(`${process.env.API_URL}/auth/local`, {
+        const { jwt, user } = await fetchJson(`${process.env.CMS_URL}/auth/local`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
