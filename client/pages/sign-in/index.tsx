@@ -1,14 +1,15 @@
 import { spawn } from 'child_process';
+import { useRouter } from 'next/router';
 import React, { FormEvent, FormEventHandler, useState } from 'react';
 import PageHeading from '../../components/common/heading';
 import { signIn } from '../../lib/auth';
 
 const SignIn = () => {
+    const router = useRouter();
     const [status, setStatus] = useState({
         error: false,
         loading: false,
-    }
-    )
+    })
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -24,7 +25,7 @@ const SignIn = () => {
 
         try {
             const res = await signIn({ email, password });
-            console.log(res);
+            router.push('/');
         } catch (err) {
             setStatus((x) => ({
                 ...x,

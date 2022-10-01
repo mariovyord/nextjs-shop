@@ -1,8 +1,16 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getUserData } from '../../lib/auth';
 
 const Header = () => {
-    const user = 'john';
+    const [user, setUser] = useState(undefined);
+
+    useEffect(() => {
+        getUserData()
+            .then((user) => {
+                setUser(user)
+            })
+    }, [])
 
 
     const links = <>
