@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import { getUserData } from '../../lib/auth';
+import { getUserData, signOut } from '../../lib/auth';
 
 const Header = () => {
     const [user, setUser] = useState(undefined);
@@ -12,6 +12,10 @@ const Header = () => {
             })
     }, [])
 
+    const handleSignOut = async () => {
+        await signOut;
+        setUser(undefined);
+    }
 
     const links = <>
         <li>
@@ -58,7 +62,7 @@ const Header = () => {
                     </a>
                 </li>
                 <li><a>Settings</a></li>
-                <li><a>Logout</a></li>
+                <li><a onClick={handleSignOut}>Logout</a></li>
             </ul>
         </div>
     </div>

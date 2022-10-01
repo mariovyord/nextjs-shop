@@ -13,6 +13,10 @@ export const signIn = ({ email, password }: { email: string, password: string })
     })
 }
 
+export const signOut = async () => {
+    return fetchJson(`${process.env.NEXT_PUBLIC_APP_URL}/api/signout`)
+}
+
 export const getUserData = async () => {
     try {
         const user = await fetchJson(`${process.env.NEXT_PUBLIC_APP_URL}/api/user`);
