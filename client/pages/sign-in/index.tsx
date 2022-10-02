@@ -24,7 +24,7 @@ const SignIn = () => {
     return (
         <div className='flex flex-col justify-center align-middle sm:items-center'>
             <section>
-                <form onSubmit={handleSubmit} className='p-8 w-full sm:w-96 form-control gap-2'>
+                <form onSubmit={handleSubmit} className='py-8 sm:px-8 w-full sm:w-96 form-control gap-2'>
                     <PageHeading>Sign In</PageHeading>
                     <div className="form-control w-full">
                         <label htmlFor='email' className="label">
