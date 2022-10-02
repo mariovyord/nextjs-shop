@@ -1,3 +1,13 @@
+export interface IMinifiedCart {
+    id: string,
+    product: {
+        id: string,
+        title: string,
+        price: number,
+    },
+    quantity: number,
+}
+
 export interface ICartItem {
     id: number;
     user: User;
