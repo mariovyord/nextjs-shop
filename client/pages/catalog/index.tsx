@@ -1,27 +1,29 @@
 import React from 'react';
 import Head from 'next/head'
-import Catalog from '../components/catalog/catalog';
 import { GetStaticProps, NextPage } from 'next';
-import { getProducts } from '../lib/products';
-import { TProduct } from '../types/types';
-import { ApiError } from '../lib/api';
-import Carousel from '../components/carousel/carousel';
+import Catalog from '../../components/catalog/catalog';
+import { TProduct } from '../../types/types';
+import { getProducts } from '../../lib/products';
+import { ApiError } from '../../lib/api';
 
-const Home: NextPage<{ products: TProduct[] }> = ({ products }) => {
+
+const CatalogPage: NextPage<{ products: TProduct[] }> = ({ products }) => {
     return (
         <>
             <Head>
-                <title>Next Shop</title>
+                <title>Next - Catalog</title>
             </Head>
-            <div>
-                <Carousel products={products} />
+            <main>
+                <header className='py-10'>
+                    <h1 className='text-center font-bold text-4xl'>Next Shop</h1>
+                </header>
                 <Catalog products={products} />
-            </div>
+            </main>
         </>
     )
 }
 
-export default Home;
+export default CatalogPage;
 
 export const getStaticProps: GetStaticProps = async () => {
     try {
