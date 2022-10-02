@@ -1,43 +1,23 @@
-import { spawn } from 'child_process';
 import { useRouter } from 'next/router';
-import React, { FormEvent, FormEventHandler, useState } from 'react';
+import React, { FormEvent } from 'react';
 import PageHeading from '../../components/common/heading';
-import { signIn } from '../../lib/auth';
+import { useSignIn } from '../../hooks/useSignIn';
 
 const SignIn = () => {
     const router = useRouter();
-    const [status, setStatus] = useState({
-        error: false,
-        loading: false,
-    })
+    const { signIn, signInIsLoading, signInIsError } = useSignIn();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        setStatus((x) => ({
-            ...x,
-            loading: true,
-        }))
 
         const formData = new FormData(e.currentTarget);
         const email = formData.get('email') as string;
         const password = formData.get('password') as string;
 
-        try {
-            const res = await signIn({ email, password });
+        const isSignInValid = await signIn({ email, password });
+        if (isSignInValid) {
             router.push('/');
-        } catch (err) {
-            setStatus((x) => ({
-                ...x,
-                error: true,
-            }))
-        } finally {
-            setStatus((x) => ({
-                ...x,
-                loading: false,
-            }))
         }
-
     }
 
     return (
@@ -68,11 +48,11 @@ const SignIn = () => {
                         required={true}
                     />
                 </div>
-                {status.error && <span onClick={() => setStatus(x => ({ ...x, error: false }))} className='text-error-content text-center block p-1 bg-error rounded-lg'>Invalid credentials</span>}
+                {signInIsError && <span className='text-error-content text-center block p-1 bg-error rounded-lg'>Invalid credentials</span>}
                 <button
-                    disabled={status.loading}
+                    disabled={signInIsLoading}
                     type='submit'
-                    className={`btn btn-primary mt-4 ${status.loading && 'loading'}`}
+                    className={`btn btn-primary mt-4 ${signInIsLoading && 'loading'}`}
                 >Submit</button>
             </form>
         </div>

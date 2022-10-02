@@ -1,20 +1,19 @@
-import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
-import { getUserData, signOut } from '../../lib/auth';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React from 'react';
+import { useSignOut } from '../../hooks/useSignOut';
+import { useUser } from '../../hooks/useUser';
 
 const Header = () => {
-    const [user, setUser] = useState(undefined);
-
-    useEffect(() => {
-        getUserData()
-            .then((user) => {
-                setUser(user)
-            })
-    }, [])
+    const { user } = useUser();
+    const { signOut } = useSignOut();
+    const router = useRouter();
 
     const handleSignOut = async () => {
-        await signOut;
-        setUser(undefined);
+        const isSignOut = await signOut();
+        if (isSignOut) {
+            router.push('/');
+        }
     }
 
     const links = <>
