@@ -7,7 +7,7 @@ import Link from 'next/link';
 
 const CartDropdown = () => {
     const query = useQuery(['cartItems'], async () => await fetchJson('/api/cart'));
-    const cart = query.data as IMinifiedCart[];
+    const cart = query.data as IMinifiedCart[] || [];
 
     return (<>
         <label tabIndex={0} className="btn btn-ghost btn-circle">
