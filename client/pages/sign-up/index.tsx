@@ -1,12 +1,15 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState } from 'react';
 import PageHeading from '../../components/common/heading';
 import { useSignIn } from '../../hooks/useSignIn';
+import { useSignUp } from '../../hooks/useSignUp';
 
 const SignIn = () => {
+    const [errorMsg, setErrorMsg] = useState('');
+
     const router = useRouter();
-    const { signIn, signInIsLoading, signInIsError } = useSignIn();
+    const { signUp, signUpIsError, signUpIsLoading } = useSignUp();
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -21,7 +24,17 @@ const SignIn = () => {
             return undefined; // TODO add notifications
         }
 
-        // TODO Add Sign Up hook
+        const signUpMsg = await signUp({ username, email, password });
+
+        if (signUpMsg === 'Success') {
+            return router.push('/');
+        } else {
+            setErrorMsg(signUpMsg);
+            setTimeout(() => {
+                setErrorMsg('');
+            }, 5000)
+        }
+
     }
 
     return (
@@ -83,11 +96,11 @@ const SignIn = () => {
                             maxLength={100}
                         />
                     </div>
-                    {signInIsError && <span className='text-error-content text-center block p-1 bg-error rounded-lg'>Invalid credentials</span>}
+                    {errorMsg !== '' && <span className='text-error-content text-center block p-1 bg-error rounded-lg'>{errorMsg}</span>}
                     <button
-                        disabled={signInIsLoading}
+                        disabled={signUpIsLoading}
                         type='submit'
-                        className={`btn btn-primary mt-4 ${signInIsLoading && 'loading'}`}
+                        className={`btn btn-primary mt-4 ${signUpIsLoading && 'loading'}`}
                     >Submit</button>
                 </form>
             </section>
