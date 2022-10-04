@@ -1,4 +1,4 @@
-# Toy Cars Shop
+# Next.js Shop
 
 Simple e-commerce website. For educational purposes only.
 
